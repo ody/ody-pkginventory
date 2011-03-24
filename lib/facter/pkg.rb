@@ -21,7 +21,7 @@ case Facter.value(:operatingsystem)
     combined = ''
     packages = []
     Facter::Util::Resolution.exec(command).each_line do |line|
-      if line =~ /^\S/
+      if line =~ /^\w/
         then
           combined << line.chomp
         else
@@ -29,16 +29,15 @@ case Facter.value(:operatingsystem)
       end
     end
     combined.each_line do |pkg|
-      packages << pkg.chomp.scan(/^(\S+).*\s(\d.*)/)
+      packages << pkg.chomp.scan(/^(\S+).*\s(\d.*)/)[0]
     end
 end
 
-packages.each { |key, value|
-
-  Facter.add(:"pkg_#{key}") {
-    setcode {
+packages.each do |key, value|
+  Facter.add(:"pkg_#{key}") do
+    setcode do
       value
-    }
-  }
+    end 
+  end 
 
-}
+end
