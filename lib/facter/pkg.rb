@@ -1,7 +1,8 @@
-# Cody Herriges <c.a.herriges@gmail.com>
+# Cody Herriges <cody@puppetlabs.com>
 #
-# Testing the feasibility of generating a fact on the fly for every package
-# present on the system.
+# Collects and creates a fact for every package installed on the system and
+# returns that package's version as the fact value.  Useful for doing package
+# inventory and making decisions based on installed package versions.
 
 case Facter.value(:operatingsystem)
   when 'Debian', 'Ubuntu'
@@ -35,9 +36,10 @@ end
 
 packages.each do |key, value|
   Facter.add(:"pkg_#{key}") do
+    confine :operatingsystem => %w{CentOS Fedora Redhat Debian Ubuntu Solaris}
     setcode do
       value
-    end 
-  end 
+    end
+  end
 
 end
