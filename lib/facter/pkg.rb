@@ -18,14 +18,14 @@ case Facter.value(:operatingsystem)
     end
   when 'Solaris'
     command = 'pkginfo -x'
-    packages = []
     combined = ''
+    packages = []
     Facter::Util::Resolution.exec(command).each_line do |line|
       if line =~ /^\S/
         then
-          combined << foo.chomp
+          combined << line.chomp
         else
-          combined << foo
+          combined << line
       end
     end
     combined.each_line do |pkg|
