@@ -1,0 +1,8 @@
+name    'ody-pkginventory'
+version '0.0.1'
+source 'https://github.com/ody/ody-pkginventory'
+author 'ody'
+license 'APL 2.0'
+summary 'Create a fact for every package on the system'
+description 'This will generate a fact for ever package on the system with the value being the package version.  Each fact is prepended with pkg_.  The function this serves is primarily for inventory purposes.'
+project_page 'https://github.com/ody/ody-pkginventory'
